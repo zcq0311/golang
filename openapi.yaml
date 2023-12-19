@@ -1,0 +1,189 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /helloworld/{name}:
+        get:
+            tags:
+                - Greeter
+            description: Sends a greeting
+            operationId: Greeter_SayHello
+            parameters:
+                - name: name
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.HelloReply'
+    /student/create:
+        post:
+            tags:
+                - Student
+            description: 创建新的学生信息
+            operationId: Student_CreateStudent
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.helloworld.v1.CreateStudentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.v1.CreateStudentReply'
+    /student/delete/{id}:
+        delete:
+            tags:
+                - Student
+            operationId: Student_DeleteStudent
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.v1.DeleteStudentReply'
+    /student/get/{id}:
+        get:
+            tags:
+                - Student
+            description: 查找学生信息
+            operationId: Student_GetStudent
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.v1.GetStudentReply'
+    /student/update:
+        post:
+            tags:
+                - Student
+            operationId: Student_UpdateStudent
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.helloworld.v1.UpdateStudentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.helloworld.v1.UpdateStudentReply'
+components:
+    schemas:
+        api.helloworld.v1.CreateStudentReply:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                name:
+                    type: string
+                info:
+                    type: string
+            description: 创建学生的响应结果
+        api.helloworld.v1.CreateStudentRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                info:
+                    type: string
+            description: 创建学生的请求参数
+        api.helloworld.v1.DeleteStudentReply:
+            type: object
+            properties:
+                success:
+                    type: boolean
+        api.helloworld.v1.GetStudentReply:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                name:
+                    type: string
+                info:
+                    type: string
+                status:
+                    type: integer
+                    format: int32
+        api.helloworld.v1.Stu:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                name:
+                    type: string
+                info:
+                    type: string
+                status:
+                    type: integer
+                    format: int32
+            description: 学生信息的消息。
+        api.helloworld.v1.UpdateStudentReply:
+            type: object
+            properties:
+                success:
+                    type: boolean
+                message:
+                    type: string
+                updatedStudent:
+                    $ref: '#/components/schemas/api.helloworld.v1.Stu'
+        api.helloworld.v1.UpdateStudentRequest:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: int32
+                name:
+                    type: string
+                info:
+                    type: string
+                status:
+                    type: integer
+                    format: int32
+            description: 修改学生信息
+        helloworld.v1.HelloReply:
+            type: object
+            properties:
+                message:
+                    type: string
+            description: The response message containing the greetings
+tags:
+    - name: Greeter
+      description: The greeting service definition.
+    - name: Student

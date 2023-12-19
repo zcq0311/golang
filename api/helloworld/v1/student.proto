@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package api.helloworld.v1;
+
+option go_package = "student/api/helloworld/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.helloworld.v1";
+
+service Student {
+	//创建新的学生信息
+	rpc CreateStudent (CreateStudentRequest) returns (CreateStudentReply){
+		option (google.api.http) = {
+			post: "/student/create"
+			body: "*"
+		};
+	};
+	rpc UpdateStudent (UpdateStudentRequest) returns (UpdateStudentReply){
+		option (google.api.http) = {
+			post: "/student/update"
+			body: "*"
+		};
+	};
+	rpc DeleteStudent (DeleteStudentRequest) returns (DeleteStudentReply){
+		option (google.api.http) = {
+			delete: "/student/delete/{id}",
+		};
+	};
+	//查找学生信息
+	rpc GetStudent (GetStudentRequest) returns (GetStudentReply){
+		option (google.api.http) = {
+			get: "/student/get/{id}",
+		};
+	};
+	rpc ListStudent (ListStudentRequest) returns (ListStudentReply);
+}
+
+//创建学生的请求参数
+message CreateStudentRequest {
+	string name = 1;
+	string info = 2;
+}
+//创建学生的响应结果
+message CreateStudentReply {
+	int32 id = 1; // 成功创建的学生ID
+	string name = 2; // 学生的名称
+	string info = 3;
+}
+
+//修改学生信息
+message UpdateStudentRequest {
+	int32 id = 1;     // 学生的唯一ID。
+	string name = 2;  // 学生的名字。
+	string info = 3;  // 附加信息。
+	int32 status = 4; // 学生的状态。
+}
+message UpdateStudentReply {
+	bool success = 1;       // 表示更新是否成功。
+	string message = 2;     // 更新操作的结果消息。
+	Stu updated_student = 3; // 更新后的学生信息。
+}
+
+// 学生信息的消息。
+message Stu {
+	int32 id = 1;
+	string name = 2;
+	string info = 3;
+	int32 status = 4;
+	// 可能还有其他字段，如创建时间和更新时间等。
+}
+
+//删除学生信息
+message DeleteStudentRequest {
+	int32 id = 1; //学生唯一ID
+}
+message DeleteStudentReply {
+	bool success = 1;
+}
+
+//查找学生信息
+message GetStudentRequest {
+	int32  id = 1;
+}
+message GetStudentReply {
+	int32  id = 1;
+	string name = 2;
+	string info = 3;
+	int32 status = 4;
+
+}
+
+message ListStudentRequest {}
+message ListStudentReply {}
